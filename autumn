@@ -1,0 +1,200 @@
+A4='list:routes'
+A3='delete:validator'
+A2='delete:route'
+A1='delete:model'
+A0='delete:middleware'
+z='delete:helper'
+y='make:validator'
+x='make:route'
+w='make:model'
+v='make:middleware'
+u='make:helper'
+t='scaffold'
+s='commands'
+r=str
+b='./validators/index.js'
+a='./models/index.js'
+Z='./middlewares/index.js'
+Y='module.exports = function() {}'
+X='start:dev'
+W='start:prod'
+V='\n'
+U='-'
+T=enumerate
+P='./helper/index.js'
+O='a'
+N='r'
+M='./routes/index.js'
+L=print
+J='.js'
+I=len
+H=''
+G='w'
+F=True
+E=open
+D=False
+import sys as C,os as B,datetime as c,json as Q
+d="\n    --------------------------------------------------------------------------\n    |                                                                        |\n    |                                                        .\\^/.           |\n    |                 _                                    . |`|/| .         |\n    |      __ _ _   _| |_ _   _ _ __ ___  _ __             |\\|\\|'|/|         |\n    |     / _` | | | | __| | | | '_ ` _ \\| '_ \\         .--'-\\`|/-''--.      |\n    |    | (_| | |_| | |_| |_| | | | | | | | | |         \\`-._\\|./.-'/       |\n    |     \\__,_|\\__,_|\\__|\\__,_|_| |_| |_|_| |_|          >`-._|/.-'<        |\n    |                                                    '~|/~~|~~\\|~'       |\n    |                                                          |             |\n    |                                                                        |\n    --------------------------------------------------------------------------\n"
+R="\n//    --------------------------------------------------------------------------\n//    |                                                                        |\n//    |                                                        .\\^/.           |\n//    |                 _                                    . |`|/| .         |\n//    |      __ _ _   _| |_ _   _ _ __ ___  _ __             |\\|\\|'|/|         |\n//    |     / _` | | | | __| | | | '_ ` _ \\| '_ \\         .--'-\\`|/-''--.      |\n//    |    | (_| | |_| | |_| |_| | | | | | | | | |         \\`-._\\|./.-'/       |\n//    |     \\__,_|\\__,_|\\__|\\__,_|_| |_| |_|_| |_|          >`-._|/.-'<        |\n//    |                                                    '~|/~~|~~\\|~'       |\n//    |                                                          |             |\n//    |                                                                        |\n//    --------------------------------------------------------------------------\n"
+def A(data,isOk):
+	if not'--mute'in C.argv:L(f"[autumn][{c.datetime.now().strftime('%H:%M:%S')}][{'OK'if isOk else'WARN'}]",data)
+def K(caption):A=caption;C=B.get_terminal_size().columns;L(f"\n{A} {U*(C-I(A)-1)}")
+def S(data,horizontalDivider=H,verticalDivider=H,headDivider=H):
+	F=headDivider;E=' ';C=verticalDivider;D=B.get_terminal_size().columns;A=H
+	for (J,K) in T(data):
+		if J<2 and F:A+=V+F*D
+		else:A+=V+horizontalDivider*D
+		for (L,G) in T(K):
+			if L>0:A+=C+E
+			A+=r(G)+E*((D-I(C+E))//I(data[0])-I(C+E)-I(r(G)))
+	return A
+def e():A=[['COMMAND','DESCRIPTION','SYNTAX'],[s,'lists all available commands.','autumn commands'],[t,'scaffolds the project structure.','autumn scaffold [--mute to mute]'],[W,'starts the application in production mode (ctrl + c to stop)','autumn start:prod'],[X,'starts the application in development mode (ctrl + c to stop)','autumn start:dev'],[u,'creates and links a helper','autumn make:helper [name] [--mute to mute]'],[v,'creates and links a middleware','autumn make:middleware [name] [--mute to mute]'],[w,'creates and links a model','autumn make:model [name] [--mute to mute]'],[x,'creates and links a route','autumn make:route [name] [--mute to mute]'],[y,'creates and links a validator','autumn make:validator [name] [--mute to mute]'],[z,'deletes and unlinks a helper','autumn delete:helper [name] [--mute to mute]'],[A0,'deletes and unlinks a middleware','autumn delete:middleware [name] [--mute to mute]'],[A1,'deletes and unlinks a model','autumn delete:model [name] [--mute to mute]'],[A2,'deletes and unlinks a route','autumn delete:route [name] [--mute to mute]'],[A3,'deletes and unlinks a validator','autumn delete:validator [name] [--mute to mute]'],[A4,'lists all application routes','autumn list:routes']];L(d);L(S(A,U,'|','='))
+def f():
+	p='./app.js';o='./.todo';n='./.prettierrc';m='./.gitignore';l='./.env.example';k='./.env';j='./helper/cleanLogger.js';i='validators';h='models';g='middlewares';f='helper';V='./package.json';K('creating folders');Y=[f,g,h,'routes','static',i,'views']
+	for H in Y:
+		if B.path.isdir(H):A(f"skipping [{H}] folder as it already exists",D)
+		else:B.mkdir(H);A(f"[{H}] folder created",F)
+	K('creating bundler');Z=[f,g,h,i]
+	for I in Z:
+		if B.path.isfile(f"./{I}/index.js"):A(f"skipping [{I}] bundler as it already exists",D)
+		else:J=E(f"./{I}/index.js",G);J.write(R+'\n// this bundler is automatically managed by autumn, type autumn:commands to list all available commands');J.close();A(f"[{I}] bundler created",F)
+	K('creating route autoloader')
+	if B.path.isfile(M):A('skipping the route autoloader as it already exists',D)
+	else:L=E(M,G);L.write(R+"\n// this autoloader is automatically managed by autumn, type autumn:commands to list all available commands\nconst express = require('express')\nconst router = express.Router()\n\nmodule.exports = router");L.close();A(f"route autoloader created",F)
+	K('creating cleanLogger helper')
+	if B.path.isfile(j):A('skipping the cleanLogger helper as it already exists',D)
+	else:N=E(j,G);N.write("module.exports = function (log, isOk) {\n\tconst date = new Date()\n\tlet hours = date.getHours()\n\tlet minutes = date.getMinutes()\n\tlet seconds = date.getSeconds()\n\tif (hours < 10) hours = `0${hours}`\n\tif (minutes < 10) minutes = `0${minutes}`\n\tif (seconds < 10) seconds = `0${seconds}`\n\tconst state = isOk ? 'OK' : 'WARN'\n\tconsole.log(`[fall][${hours}:${minutes}:${seconds}][${state}] ${log}`)\n}\n        ");N.close();S=E(P,O);S.write("\nmodule.exports.cleanLogger = require('./cleanLogger')");S.close();A('cleanLogger helper created',F)
+	K('creating config files')
+	if B.path.isfile(k):A('skipping .env as it already exists',D)
+	else:a=E(k,G);a.write(f"APP_ROOT={B.getcwd()}\nPROT=http\nHOST=0.0.0.0\nPORT=5000\n        ");A('.env created',F)
+	if B.path.isfile(l):A('skipping .env.example as it already exists',D)
+	else:b=E(l,G);b.write('APP_ROOT=[root path to this directory]\nPROT=[http or https]\nHOST=[0.0.0.0 for localhost or the domainname]\nPORT=[the port the application runs on]        \n        ')
+	if B.path.isfile(m):A('skipping .gitignore as it already exists',D)
+	else:c=E(m,G);c.write('/node_modules\n.env\n.todo\n        ');A('.gitignore created',F)
+	if B.path.isfile(n):A('skipping .prettierrc as it already exists.',D)
+	else:T=E(n,G);T.write('{\n\t"printWidth": 80,\n\t"tabWidth": 2,\n\t"useTabs": true,\n\t"semi": false,\n\t"singleQuote": true,\n\t"quoteProps": "as-needed",\n\t"jsxSingleQuote": true,\n\t"trailingComma": "none",\n\t"bracketSpacing": true,\n\t"jsxBracketSameLine": false,\n\t"arrowParens": "always",\n\t"requirePragma": false,\n\t"insertPragma": false,\n\t"proseWrap": "preserve",\n\t"htmlWhitespaceSensitivity": "css",\n\t"vueIndentScriptAndStyle": true,\n\t"endOfLine": "crlf"\n}\n        ');T.close();A('.prettierrc created',F)
+	if B.path.isfile(o):A('skipping .todo as it already exists.',D)
+	else:d=E(o,G);d.close();A('.todo created',F)
+	if B.path.isfile(p):A('skipping app.js as it already exists',D)
+	else:e=E(p,G);e.write("require('dotenv').config()\nconst express = require('express')\n\nconst helper = require('./helper')\nconst routes = require('./routes')\n\nconst app = express()\n\napp.use('/static', express.static('./static'))\napp.use(routes)\n\nconst prot = process.env.PROT\nconst host = process.env.HOST\nconst port = process.env.PORT\napp.listen(port, host, () => {\n\thelper.cleanLogger(`application listening on [${prot}://${host}:${port}]`, true)\n    helper.cleanLogger(`application is running in [${process.env.NODE_ENV}] mode`, true)\n})\n        ");A('app.js created',F)
+	K('creating package.json')
+	if B.path.isfile(V):A('skipping package.json as it already exists.',D)
+	else:B.system('npm init -y');C=E(V);U=Q.load(C);U['scripts']={W:'cross-env NODE_ENV=production node app',X:'cross-env NODE_ENV=development nodemon app'};C.close();C=E(V,G);Q.dump(U,C);C.close();A('package.json created',F)
+	K('installing dependencies')
+	if B.path.isdir('./node_modules'):A('skipping dependencies as the node_modules folder already exists',D)
+	else:B.system('npm install --save-dev nodemon cross-env');B.system('npm install --save express dotenv')
+	K('opening app.js with vscode');B.system('code app.js')
+def g():
+	if I(C.argv)<3:A('missing name of helper, use autumn make:helper [name] or type autumn commands to list all available commands',D)
+	else:
+		K=C.argv[2].replace(J,H)
+		if B.path.isfile(f"./helper/{K}.js"):A(f"skipping [{K}] helper as it already exists",D)
+		else:L=E(f"./helper/{K}.js",G);L.write(Y);L.close();M=E(P,O);M.write(f"\nmodule.exports.{K} = require('./{K}')");M.close();B.system(f"code ./helper/{K}.js");A(f"[{K}] helper created",F)
+def h():
+	if I(C.argv)<3:A('missing name of middleware, use autumn make:middleware [name] or type autumn commands to list all available commands',D)
+	else:
+		K=C.argv[2].replace(J,H)
+		if B.path.isfile(f"./middlewares/{K}.js"):A(f"skipping [{K}] middleware as it already exists",D)
+		else:L=E(f"./middlewares/{K}.js",G);L.write('module.exports = function(req, res, next) {}');L.close();M=E(Z,O);M.write(f"\nmodule.exports.{K} = require('./{K}')");M.close();B.system(f"code ./middlewares/{K}.js");A(f"[{K}] middleware created",F)
+def i():
+	if I(C.argv)<3:A('missing name of model, use autumn make:model [name] or type autumn commands to list all available commands',D)
+	else:
+		K=C.argv[2].replace(J,H)
+		if B.path.isfile(f"./models/{K}.js"):A(f"skipping [{K}] model as it already exists",D)
+		else:L=E(f"./models/{K}.js",G);L.write(Y);L.close();M=E(a,O);M.write(f"\nmodule.exports.{K} = require('./{K}')");M.close();B.system(f"code ./models/{K}.js");A(f"[{K}] model created",F)
+def j():
+	if I(C.argv)<3:A('missing name of route, use autumn make:route [name] or type autumn commands to list all available commands',D)
+	else:
+		L=C.argv[2].replace(J,H)
+		if B.path.isfile(f"./routes/{L}.js"):A(f"skipping [{L}] route as it already exists",D)
+		else:
+			N=E(f"./routes/{L}.js",G);N.write("const express = require('express')\n\nconst router = express.Router()\n\nmodule.exports = router");N.close();K=E(M);O=K.readlines();K.close();K=E(M,G)
+			for P in O[:-1]:K.write(P)
+			K.write(f"router.use(require('./{L}'))\n");K.write(O[-1]);K.close();B.system(f"code ./routes/{L}.js");A(f"[{L}] route created",F)
+def k():
+	if I(C.argv)<3:A('missing name of validator, use autumn make:validator [name] or type autumn commands to list all available commands',D)
+	else:
+		K=C.argv[2].replace(J,H)
+		if B.path.isfile(f"./validators/{K}.js"):A(f"skipping [{K}] validator as it already exists",D)
+		else:L=E(f"./validators/{K}.js",G);L.write(Y);L.close();M=E(b,O);M.write(f"\nmodule.exports.{K} = require('./{K}')");M.close();B.system(f"code ./validators/{K}.js");A(f"[{K}] validator created",F)
+def l():
+	if I(C.argv)<3:A('missing name of helper, use autumn delete:helper [name] or type autumn commands to list all available commands',D)
+	else:
+		K=C.argv[2].replace(J,H)
+		if not B.path.isfile(f"./helper/{K}.js"):A(f"skipping [{K}] helper as it does not exist",D)
+		else:
+			B.remove(f"./helper/{K}.js");L=E(P,N);M=L.readlines();L.close();L=E(P,G);M=[A for A in M if f"module.exports.{K} = require('./{K}')"not in A]
+			for O in M:L.write(O)
+			L.close();A(f"[{K}] helper deleted",F)
+def m():
+	if I(C.argv)<3:A('missing name of middleware, use autumn delete:middleware [name] or type autumn commands to list all available commands',D)
+	else:
+		K=C.argv[2].replace(J,H)
+		if not B.path.isfile(f"./middlewares/{K}.js"):A(f"skipping [{K}] middlewares as it does not exist",D)
+		else:
+			B.remove(f"./middlewares/{K}.js");L=E(Z,N);M=L.readlines();L.close();L=E(Z,G);M=[A for A in M if f"module.exports.{K} = require('./{K}')"not in A]
+			for O in M:L.write(O)
+			L.close();A(f"[{K}] middlewares deleted",F)
+def n():
+	if I(C.argv)<3:A('missing name of model, use autumn delete:model [name] or type autumn commands to list all available commands',D)
+	else:
+		K=C.argv[2].replace(J,H)
+		if not B.path.isfile(f"./models/{K}.js"):A(f"skipping [{K}] models as it does not exist",D)
+		else:
+			B.remove(f"./models/{K}.js");L=E(a,N);M=L.readlines();L.close();L=E(a,G);M=[A for A in M if f"module.exports.{K} = require('./{K}')"not in A]
+			for O in M:L.write(O)
+			L.close();A(f"[{K}] models deleted",F)
+def o():
+	if I(C.argv)<3:A('missing name of route, use autumn delete:route [name] or type autumn commands to list all available commands',D)
+	else:
+		K=C.argv[2].replace(J,H)
+		if not B.path.isfile(f"./routes/{K}.js"):A(f"skipping [{K}] routes as it does not exist",D)
+		else:
+			B.remove(f"./routes/{K}.js");L=E(M,N);O=L.readlines();L.close();L=E(M,G);O=[A for A in O if f"router.use(require('./{K}'))"not in A]
+			for P in O:L.write(P)
+			L.close();A(f"[{K}] routes deleted",F)
+def p():
+	L('test')
+	if I(C.argv)<3:A('missing name of validator, use autumn delete:validator [name] or type autumn commands to list all available commands',D)
+	else:
+		K=C.argv[2].replace(J,H)
+		if not B.path.isfile(f"./validators/{K}.js"):A(f"skipping [{K}] validators as it does not exist",D)
+		else:
+			B.remove(f"./validators/{K}.js");M=E(b,N);O=M.readlines();M.close();M=E(b,G);O=[A for A in O if f"module.exports.{K} = require('./{K}')"not in A]
+			for P in O:M.write(P)
+			M.close();A(f"[{K}] validators deleted",F)
+def q():
+	X='(req, res)';J=[['METHOD','PATH','MIDDLEWARES']];K=[]
+	for M in B.listdir('./routes'):
+		if not M=='index.js':
+			R=E(f"./routes/{M}",N);O=R.readlines()
+			for (W,G) in T(O):
+				A=H
+				if'router.'in G:
+					A+=G
+					if not X in G:
+						P=D
+						for Q in O[W+1:]:
+							if not P:A+=Q
+							if X in Q:P=F
+				if A:K.append(A.replace(V,H).replace('\t',H).strip())
+	for I in K:C=[];C.append(I.split('.')[1].split('(')[0].upper());C.append(I.split("'")[1]);C.append(', '.join(I.split(',')[1:-2]));J.append(C)
+	L(S(J,U,'|','='))
+try:
+	if C.argv[1]==s:e()
+	elif C.argv[1]==t:f()
+	elif C.argv[1]==W:B.system('npm run start:prod')
+	elif C.argv[1]==X:B.system('npm run start:dev')
+	elif C.argv[1]==u:g()
+	elif C.argv[1]==v:h()
+	elif C.argv[1]==w:i()
+	elif C.argv[1]==x:j()
+	elif C.argv[1]==y:k()
+	elif C.argv[1]==z:l()
+	elif C.argv[1]==A0:m()
+	elif C.argv[1]==A1:n()
+	elif C.argv[1]==A2:o()
+	elif C.argv[1]==A3:p()
+	elif C.argv[1]==A4:q()
+	else:A('invalid parameter, type autumn commands to list all available commands',D)
+except IndexError:A('missing parameters, type autumn commands to list all available commands',D)
